@@ -1,0 +1,18 @@
+html,body{
+    background: #fafafa;
+    position: relative;
+}
+.page-content{
+    padding-left: 40px;
+    padding-top: 40px;
+}
+.mdl-layout__content{
+    overflow: auto;
+    overflow-y: hidden;
+}
+.manageButton{
+    margin-left: 20px;
+}
+table{
+    margin-top: 30px;
+}
