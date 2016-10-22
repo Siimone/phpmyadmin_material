@@ -133,7 +133,7 @@ $(document).ready(function() {
 function createFormNewTable(numberOfColumns){
     $('#form').empty();
     for(var i=0; i < numberOfColumns; i++){
-        var selectType = "<select class='typeCol' id='colId" + i + "'><option value='int'>Int</option><option value='Text'>Text</option><option value='opel'>Opel</option><option value='audi'>Audi</option></select>";
+        var selectType = "<select class='typeCol' id='colId" + i + "'><option value='int'>Int</option><option value='Text'>Text</option></select>";
         var columnName = "<div class='mdl-textfield mdl-js-textfield' style='width:120px; margin-left:40px'><input class='mdl-textfield__input colName' type='text' id='colNameId" + i + "'><label class='mdl-textfield__label' for='" + i + "'>Column Name</label></div>";
         $("#form").append(selectType + columnName + "<br>");
     }
