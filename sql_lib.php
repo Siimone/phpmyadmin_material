@@ -19,7 +19,6 @@
                 newTable($_GET['db'], $_GET['table'], $_GET['sql']);
                 break;
             case 'remove_rows':
-                echo "Remove";
                 removeRows($get['db'],$get['table'], $get['field'], $get['value']);
                 break;
             case 'drop_tables':
@@ -31,7 +30,7 @@
         }
     }
 
-    function execute_sql($sql, $db, $msg){
+    function newTable($db, $table, $sql){
         $conn = new mysqli($GLOBALS['DBServer'], $GLOBALS['DBUser'], $GLOBALS['DBPass'], $db);
         if ($conn->connect_error)
           $rs = 'Database connection failed: ' . $conn->connect_error . E_USER_ERROR;
@@ -39,34 +38,69 @@
         if($rs === false) {
             echo 'Wrong SQL: ' . $sql . ' Error: ' . $conn->error . E_USER_ERROR;
         }else {
-            $rs = $msg;
+            $rs = "Table created successfully!";
         }
         mysqli_close($conn);
-        return $rs;
-    }
-    
-    function drop_tables($db,$table){
-        $sql = 'DROP TABLE ' . $table . ';';
-        echo execute_sql($sql, $db, "Tables deleted successfully!");
+        echo $rs;
     }
 
-    function newTable($db, $table, $sql){
-        echo execute_sql($sql, $db, "Table created successfully!");
+    function drop_tables($db,$table){
+        $sql= 'DROP TABLE ' . $table . ';';
+        $conn = new mysqli($GLOBALS['DBServer'], $GLOBALS['DBUser'], $GLOBALS['DBPass'], $db);
+        if ($conn->connect_error)
+            $rs = 'Database connection failed: ' . $conn->connect_error . E_USER_ERROR;
+        $rs=$conn->query($sql);
+        if($rs === false) {
+          trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $conn->error, E_USER_ERROR);
+        }else {
+            $rs = "Tables deleted successfully!";
+        }
+        mysqli_close($conn);
+        echo $rs;
     }
 
     function add_row($sql, $db){
-        echo execute_sql($sql, $db, "Row inserted successfully!");
+        $conn = new mysqli($GLOBALS['DBServer'], $GLOBALS['DBUser'], $GLOBALS['DBPass'], $db);
+        if ($conn->connect_error)
+          $rs = 'Database connection failed: ' . $conn->connect_error . E_USER_ERROR;
+        $rs=$conn->query($sql);
+        if($rs === false) {
+            echo 'Wrong SQL: ' . $sql . ' Error: ' . $conn->error . E_USER_ERROR;
+        }else{
+            $rs = "Row inserted successfully!";
+        }
+        mysqli_close($conn);
+        echo $rs;
     }
 
     function removeRows($db, $table, $field, $value){
-        $sql = 'delete from ' . $table . ' where ' . $field . '='. $value . ';';
-        echo execute_sql($sql, $db, "Rows removed successfully!");
+        $sql= 'delete from ' . $table . ' where ' . $field . '='. $value . ';';
+        $conn = new mysqli($GLOBALS['DBServer'], $GLOBALS['DBUser'], $GLOBALS['DBPass'], $db);
+        if ($conn->connect_error)
+            $rs = 'Database connection failed: ' . $conn->connect_error . E_USER_ERROR;
+        $rs=$conn->query($sql);
+        if($rs === false){
+          trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $conn->error, E_USER_ERROR);
+        }else{
+            $arr = "Rows removed successfully!";
+        }
+        mysqli_close($conn);
+        echo $rs;
     }
 
 
     function dropDB($db){
-        $sql = 'DROP DATABASE ' . $db . ';';
-        echo execute_sql($sql, $db, "Database delete successfully!");
+        $sql= 'DROP DATABASE ' . $db . ';';
+        $conn = new mysqli($GLOBALS['DBServer'], $GLOBALS['DBUser'], $GLOBALS['DBPass']);
+        if ($conn->connect_error)
+            $rs = 'Database connection failed: ' . $conn->connect_error . E_USER_ERROR;
+        $rs=$conn->query($sql);
+        if($rs === false)
+            $rs = 'Wrong SQL: ' . $sql . ' Error: ' . $conn->error . E_USER_ERROR;
+        else
+            $rs = "Database delete successfully!";
+        mysqli_close($conn);
+        echo $rs;
     }
 
     if(isset($_GET['query'])){
@@ -90,8 +124,17 @@
     }
 
     function newDB($db){
+        $conn = new mysqli($GLOBALS['DBServer'], $GLOBALS['DBUser'], $GLOBALS['DBPass']);
         $sql='CREATE DATABASE ' . $db . ';';
-        echo execute_sql($sql, $db, "Databse created successfully!");
+        if ($conn->connect_error)
+            $rs = 'Database connection failed: '  . $conn->connect_error . E_USER_ERROR;
+        $rs=$conn->query($sql);
+        if($rs === false)
+           $rs  = 'Wrong SQL: ' . $sql . ' Error: ' . $conn->error . E_USER_ERROR;
+        else
+            $rs = "Databse created successfully!";
+        mysqli_close($conn);
+        echo $rs;
     }
 
     function getPrimaryKey($DBName,$tableName)
