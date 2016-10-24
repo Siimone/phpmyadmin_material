@@ -22,8 +22,8 @@
       </p>
     </div>
     <div class="mdl-dialog__actions">
-      <button type="button" class="mdl-button" id="accept_drop">Agree</button>
-      <button type="button" class="mdl-button close">Disagree</button>
+      <button type="button" class="mdl-button" id="accept_drop">Ok</button>
+      <button type="button" class="mdl-button close">Back</button>
     </div>
   </dialog>
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
