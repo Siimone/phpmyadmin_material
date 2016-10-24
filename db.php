@@ -16,7 +16,7 @@
 </head>
 <body>
   <dialog class="mdl-dialog">
-    <h4 class="mdl-dialog__title">Allow data collection?</h4>
+    <h4 class="mdl-dialog__title"></h4>
     <div class="mdl-dialog__content">
       <p id="msg_delete_db">
       </p>
