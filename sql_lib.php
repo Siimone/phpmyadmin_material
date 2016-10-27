@@ -40,7 +40,7 @@
         }else {
             $rs = "Table created successfully!";
         }
-        mysqli_close($conn);
+        $conn->close();
         echo $rs;
     }
 
@@ -55,7 +55,7 @@
         }else {
             $rs = "Tables deleted successfully!";
         }
-        mysqli_close($conn);
+		$conn->close();
         echo $rs;
     }
 
@@ -69,7 +69,7 @@
         }else{
             $rs = "Row inserted successfully!";
         }
-        mysqli_close($conn);
+        $conn->close();
         echo $rs;
     }
 
@@ -84,7 +84,7 @@
         }else{
             $arr = "Rows removed successfully!";
         }
-        mysqli_close($conn);
+        $conn->close();
         echo $rs;
     }
 
@@ -99,7 +99,7 @@
             $rs = 'Wrong SQL: ' . $sql . ' Error: ' . $conn->error . E_USER_ERROR;
         else
             $rs = "Database delete successfully!";
-        mysqli_close($conn);
+        $conn->close();
         echo $rs;
     }
 
@@ -120,7 +120,7 @@
                 }
             }while(mysqli_next_result($conn));
         }
-        mysqli_close($conn);
+        $conn->close();
     }
 
     function newDB($db){
@@ -133,7 +133,7 @@
            $rs  = 'Wrong SQL: ' . $sql . ' Error: ' . $conn->error . E_USER_ERROR;
         else
             $rs = "Databse created successfully!";
-        mysqli_close($conn);
+        $conn->close();
         echo $rs;
     }
 
@@ -155,7 +155,7 @@
                 }
             }
         }
-        mysqli_close($conn);
+        $conn->close();
         return $primary_key;
     }
 
@@ -171,7 +171,7 @@
         }else{
             $arr = $rs->fetch_all(MYSQLI_ASSOC);
         }
-        mysqli_close($conn);
+        $conn->close();
         return $arr;
     }
 
@@ -200,7 +200,7 @@
             echo 'Could not run query: ' . mysql_error();
             exit;
         }
-        mysqli_close($conn);
+        $conn->close();
         return $rs;
     }
 
@@ -216,7 +216,7 @@
         }else{
             $arr = $rs->fetch_all(MYSQLI_ASSOC);
         }
-        mysqli_close($conn);
+        $conn->close();
         return $rs; // return $arr o $rs? IDK
     }
 ?>
