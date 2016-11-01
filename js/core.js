@@ -1,4 +1,4 @@
-var db, table, field, value,id, columnNumbers, jsonInsert,sql, primarykey;
+var db, table, field, value,id, columnNumbers, jsonInsert,sql, primaryKey = -1;
 var arrayType = [], arrayNames = [], arrayAutoIncrement = [], arrayValues = [];
 var typeWithValues = ("int","varchar");
 
