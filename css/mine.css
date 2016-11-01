@@ -16,3 +16,18 @@ html,body{
 table{
     margin-top: 30px;
 }
+.formBuildTable{
+	width:130px;
+	/*border: solid 2px;*/
+	overflow: hidden;
+    display: inline-block;
+    white-space: nowrap;
+	vertical-align: middle;
+}
+.typeCol{
+	/*display:block;
+	margin:0 auto;*/
+}
+.thForm{
+	width:130px;
+}

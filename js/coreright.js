@@ -1,6 +1,5 @@
-var db, table, field, value,id, columnNumbers, jsonInsert,sql, primarykey;
-var arrayType = [], arrayNames = [], arrayAutoIncrement = [], arrayValues = [];
-var typeWithValues = ("int","varchar");
+var db, table, field, value,id, columnNumbers, jsonInsert,sql;
+var arrayType = [], arrayNames = [];
 
 $(document).ready(function() {
 
@@ -110,61 +109,37 @@ $(document).ready(function() {
 
     $(document).on('click', '#createTable', function(){
         columnNumbers = document.getElementById('numRows').value;
-        var counter = 0;
+        var contatore = 0;
         $( "#form" ).find("select").each(function (){
-            arrayType[counter] = $(this).val();
-            counter++;
+            arrayType[contatore] = $(this).val();
+            contatore++;
         });
-        counter = 0;
+        contatore = 0;
         $( "#form" ).find(".colName").each(function (){
-            arrayNames[counter] = $(this).val();
-            counter++;
-        });
-        counter = 0;
-        $( "#form" ).find(".pK").each(function (){
-            if(document.getElementById('col' + counter).checked){
-                primaryKey = counter;
-            }
-            counter++;
-        });
-        counter = 0;
-        $( "#form" ).find(".colValues").each(function (){
-            arrayValues[counter] = $(this).val();
-            console.log($(this).val());
-            counter++;
+            arrayNames[contatore] = $(this).val();
+            contatore++;
         });
         sql = "CREATE TABLE `" + db + "`.`" + table + "` (";
         for(var i=0; i < columnNumbers; i++){
-            sql = sql + "`" + arrayNames[i] + "` " + arrayType[i] + ( typeWithValues.indexOf(arrayType[i]) ? "(" + arrayValues[i] + ")" : "") + (primaryKey == i ? " PRIMARY KEY " : "") + ",";
+            sql = sql + "`" + arrayNames[i] + "`" + arrayType[i] + ","
         }
-        sql = sql.substring(0, sql.length-1);
-        sql = sql + ");"
-        //sql = sql + ");";
-        //sql = sql.substring(0, sql.length - 3);
-        //sql = sql è
-        //sql = sql.replace(/[,)]{2,}/g, ')');
+        sql = sql + ");";
+        sql = sql.replace(/[,)]{2,}/g, ')');
         console.log(sql);
         ajax("new_table");
     });
 });
 
 function createFormNewTable(numberOfColumns){
-    $('#form').empty();
-	$('#form').append("<table class='mdl-data-table mdl-js-data-table mdl-shadow--2dp'><tr><th class='thForm' style='text-align:left;'>Name</th><th class='thForm' style='text-align:left;'>Type</th><th class='thForm' style='text-align:left;'>Value</th><th class='thForm' style='text-align:left;'>Primary Key</th><th class='thForm'>Auto Increment</td></tr>");
+    $('#form').empty();                       
+	$('#form').append("<span style='margin-right:60px'>Type</span><span style='margin-right:60px'>Name</span><span style='margin-left:40px'>Primary Key</span><span style='margin-left:40px'>Auto Increment</span><br>");
     for(var i=0; i < numberOfColumns; i++){
-        var selectType = "<td class='mdl-data-table__cell--non-numeric formBuildTable'><select class='typeCol' id='colId" + i + "'><option value='tinyint'>Tinyint</option><option value='smallint'>SmallInt</option><option value='mediumint'>MediumInt</option><option value='int'>Int</option><option value='bigint'>BigInt</option><option value='varchar'>Varchar</option><option value='date'>Date</option><option value='text'>Text</option></select></td>";        var columnValue = "<td class='mdl-data-table__cell--non-numeric formBuildTable'><div class='mdl-textfield mdl-js-textfield' style='width:120px; margin-right:40px'><input class='mdl-textfield__input colValues' type='text' id='colValueId" + i + "'><label class='mdl-textfield__label' for='" + i + "'>Value</label></div></td>";
-        var columnName = "<td class='mdl-data-table__cell--non-numeric formBuildTable'><div class='mdl-textfield mdl-js-textfield' style='width:120px; margin-right:40px'><input class='mdl-textfield__input colName' type='text' id='colNameId" + i + "'><label class='mdl-textfield__label' for='" + i + "'>Column Name</label></div></td>";
-		var primaryKey = "<td class='formBuildTable'><label class='mdl-radio mdl-js-radio mdl-js-ripple-effect' for='col" + i + "'><input type='radio' id='col" + i + "' class='mdl-radio__button pK' name='primaryKey' value='1'><span class='mdl-radio__label'>p</span></label></td>";
-		var autoIncrement = "<td class='mdl-data-table__cell--non-numeric formBuildTable'><label class='mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect' for='auto_inc_" + i + "'><input type='checkbox' id='auto_inc_" + i + "' class='mdl-checkbox__input' checked></label></td>";
-
-        $('#form').append(columnName);
-        $('#form').append(selectType);
-        $('#form').append(columnValue);
-		$('#form').append(primaryKey);
-		$('#form').append(autoIncrement);
-		$('#form').append("<br>");
+        var selectType = "<select class='typeCol' id='colId" + i + "'><option value='int'>Int</option><option value='Text'>Text</option></select>";
+        var columnName = "\n<div class='mdl-textfield mdl-js-textfield' style='width:120px; margin-left:40px'><input class='mdl-textfield__input colName' type='text' id='colNameId" + i + "'><label class='mdl-textfield__label' for='" + i + "'>Column Name</label></div>";
+		var primaryKey = "\n<label class='mdl-radio mdl-js-radio mdl-js-ripple-effect' for='col" + i + "'><input type='radio' id='col" + i + "' class='mdl-radio__button' name='primaryKey' value='1'><span class='mdl-radio__label'>p</span></label>";
+		var autoIncrement = "<label style='display:inline; margin-left:90px' class='mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect' for='auto_inc_" + i + "'><input type='checkbox' id='auto_inc_" + i + "' class='mdl-checkbox__input' checked></label>";
+	$('#form').append(selectType + columnName + primaryKey + autoIncrement + "<br>");
     }
-	$('#form').append("</table>");
     var btn = "<button style='background-color: background-color: rgba(192,192,192,0.3); margin-bottom:40px;' class='mdl-button mdl-js-button mdl-button--raised manageDB' id='createTable'><i class='material-icons' style='color: white'>add</i></button><br>";
 	$('#form').append(btn);
     componentHandler.upgradeDom();
