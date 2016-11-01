@@ -135,7 +135,7 @@ $(document).ready(function() {
         });
         sql = "CREATE TABLE `" + db + "`.`" + table + "` (";
         for(var i=0; i < columnNumbers; i++){
-            sql = sql + "`" + arrayNames[i] + "` " + arrayType[i] + ( typeWithValues.indexOf(arrayType[i]) ? "(" + arrayValues[i] + ")" : "") + (primaryKey == i ? " PRIMARY KEY " : "") + ",";
+            sql = sql + "`" + arrayNames[i] + "` " + arrayType[i] + ( typeWithValues.indexOf(arrayType[i]) && arrayValues[i] != '' ? "(" + arrayValues[i] + ")" : "") + (primaryKey == i ? " PRIMARY KEY " : "") + ",";
         }
         sql = sql.substring(0, sql.length-1);
         sql = sql + ");"
