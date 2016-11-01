@@ -139,10 +139,6 @@ $(document).ready(function() {
         }
         sql = sql.substring(0, sql.length-1);
         sql = sql + ");"
-        //sql = sql + ");";
-        //sql = sql.substring(0, sql.length - 3);
-        //sql = sql è
-        //sql = sql.replace(/[,)]{2,}/g, ')');
         console.log(sql);
         ajax("new_table");
     });
