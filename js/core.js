@@ -68,10 +68,10 @@ $(document).ready(function() {
     $('#addRow').on('click', function (e){
         table = document.getElementById('table').innerHTML;
         db = document.getElementById('db').value;
-        sql = "INSERT INTO `" + table.trim() + "` (";
         var viewData = {
             data : []
         };
+        sql = "INSERT INTO `" + table.trim() + "` (";
         $('.newData').each(function(){
             var row = $(this);
             sql = sql + "`" + row.attr('id') + "`,";
@@ -82,7 +82,9 @@ $(document).ready(function() {
         sql = sql + ") VALUES (";
         $('.newData').each(function(){
             var row = $(this);
-            if( isNumber(row.val()) )
+            console.log("Val = " + row.val());
+            console.log(isNumber(row.val()));
+            if( isNumber(row.val()) && (row.val()).indexOf('-') == -1 )
                 sql = sql + row.val() + ",";
             else {
                 sql = sql + "\"" + row.val() + "\"" + ",";
@@ -151,7 +153,7 @@ function createFormNewTable(numberOfColumns){
         var selectType = "<td class='mdl-data-table__cell--non-numeric formBuildTable'><select class='typeCol' id='colId" + i + "'><option value='tinyint'>Tinyint</option><option value='smallint'>SmallInt</option><option value='mediumint'>MediumInt</option><option value='int'>Int</option><option value='bigint'>BigInt</option><option value='varchar'>Varchar</option><option value='date'>Date</option><option value='text'>Text</option></select></td>";        var columnValue = "<td class='mdl-data-table__cell--non-numeric formBuildTable'><div class='mdl-textfield mdl-js-textfield' style='width:120px; margin-right:40px'><input class='mdl-textfield__input colValues' type='text' id='colValueId" + i + "'><label class='mdl-textfield__label' for='" + i + "'>Value</label></div></td>";
         var columnName = "<td class='mdl-data-table__cell--non-numeric formBuildTable'><div class='mdl-textfield mdl-js-textfield' style='width:120px; margin-right:40px'><input class='mdl-textfield__input colName' type='text' id='colNameId" + i + "'><label class='mdl-textfield__label' for='" + i + "'>Column Name</label></div></td>";
 		var primaryKey = "<td class='formBuildTable'><label class='mdl-radio mdl-js-radio mdl-js-ripple-effect' for='col" + i + "'><input type='radio' id='col" + i + "' class='mdl-radio__button pK' name='primaryKey' value='1'><span class='mdl-radio__label'>p</span></label></td>";
-		var autoIncrement = "<td class='mdl-data-table__cell--non-numeric formBuildTable'><label class='mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect' for='auto_inc_" + i + "'><input type='checkbox' id='auto_inc_" + i + "' class='mdl-checkbox__input' checked></label></td>";
+		var autoIncrement = "<td class='mdl-data-table__cell--non-numeric formBuildTable'><label class='mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect' style='display:inline' for='auto_inc_" + i + "'><input type='checkbox' id='auto_inc_" + i + "' class='mdl-checkbox__input' checked></label></td>";
 
         $('#form').append(columnName);
         $('#form').append(selectType);

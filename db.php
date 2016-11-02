@@ -59,7 +59,6 @@
         <main class="mdl-layout__content" style="overflow-y: auto;">
             <section class="mdl-layout__tab-panel is-active" id="structure">
                 <div class="page-content">
-
                     <?php
                     $db = $_GET['db'];
                     $nameIndex = "Tables_in_" . $db;
