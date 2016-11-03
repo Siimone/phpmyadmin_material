@@ -82,9 +82,9 @@
                             while ($row = mysqli_fetch_assoc($result)) {
                                 if($row['Key'] == "PRI"){
                                     $primaryKey = $row['Field'];
-                                    echo "<th class='pk' style='color: red'> " . ($row['Field']) . "<br><u>" . $row['Type'] . "</u></td>";
+                                    echo "<th class='pk' style='color: red; text-align:left;'> " . ($row['Field']) . "<br><u>" . $row['Type'] . "</u></td>";
                                 }else {
-                                    echo "<th>" . ($row['Field']) . "<br><u>" . $row['Type'] . "</u></td>";
+                                    echo "<th style='text-align:left;'>" . ($row['Field']) . "<br><u>" . $row['Type'] . "</u></td>";
                                 }
                             }
                         }
