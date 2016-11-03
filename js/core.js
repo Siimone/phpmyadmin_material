@@ -171,7 +171,10 @@ function createFormNewTable(numberOfColumns){
 function toast(msg) {
     'use strict';
     var snackbarContainer = document.querySelector('#demo-toast-example');
-    var data = {message: msg};
+    var data = {
+        message: msg,
+        timeout: 2000
+    };
     snackbarContainer.MaterialSnackbar.showSnackbar(data);
 }
 
@@ -182,16 +185,9 @@ function ajax(action){
         type: 'get',
         data : { action : action, field: field, value : id, db : db, table : table, jsonData : jsonInsert, sql : sql},
         success : function(response){
-            console.log(response);
             toast(response);
-            //if(response != 1)
-            //    toast(response);
-            //else
-            //    toast("Action completed!");
-                //if(action != "drop_db")
-                //    location.reload();
-                //else
-                //    window.location.href = "index.php";
+            if(action == "drop_db")
+                window.location.href = "index.php";
         },
         error : function(error){
             console.log(error);
